@@ -1,6 +1,6 @@
 <?php 
 // Require toàn bộ các file khai báo môi trường, thực thi,...(không require view)
-
+session_start(); // Bắt đầu phiên làm việc
 // Require file Common
 require_once './commons/env.php'; // Khai báo biến môi trường
 require_once './commons/function.php'; // Hàm hỗ trợ
@@ -12,6 +12,7 @@ require_once './controllers/Admin/AdminController.php';
 
 // Require file Controller Client
 require_once './controllers/Client/HomeController.php';
+require_once './controllers/Client/UserController.php';
 
 // Require toàn bộ file Models
 require_once './models/ProductModel.php';
@@ -27,6 +28,11 @@ match ($act) {
     // Trang client
     '/' => (new HomeController())->index(),
     'gioithieu' => include './views/Client/gioithieu.php',
+    'dangnhap' => (new UserController())->showLoginForm(),
+    'dangky' => (new UserController())->showRegisterForm(),
+    'register' => (new UserController())->register($_POST),
+    'login' => (new UserController())->login($_POST),
+    'logout' => (new UserController())->logout(),
 
 
 

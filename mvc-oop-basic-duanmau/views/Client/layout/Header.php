@@ -21,29 +21,41 @@
       <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
         <ul class="navbar-nav align-items-center gap-2">
           <li class="nav-item">
-            <a class="nav-link active text-dark fw-semibold px-3" aria-current="page" href="#">Trang chủ</a>
+            <a class="nav-link active text-dark fw-semibold px-3" aria-current="page" href="index.php">Trang chủ</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark fw-semibold px-3" href="index.php?act=gioithieu">Giới thiệu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold px-3" href="#">Dịch vụ</a>
+            <a class="nav-link text-dark fw-semibold px-3" href="#">Sản phẩm</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark fw-semibold px-3" href="#">Liên hệ</a>
           </li>
         </ul>
         <div class="dropdown ms-4">
+          <?php 
+            $isLogin = !empty($_SESSION['user']);
+            $user = $isLogin ? $_SESSION['user'] : null;
+          ?>
           <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="gap:8px;">
-            <?php if (!empty($user['avatar'])): ?>
+            <?php if ($isLogin && !empty($user['avatar'])): ?>
               <img src="<?= htmlspecialchars($user['avatar']) ?>" alt="Avatar" style="width:40px; height:40px; object-fit:cover; border-radius:50%; border:2px solid #ddd;">
             <?php else: ?>
               <i class="bi bi-person-circle fs-2"></i>
             <?php endif; ?>
+            <?php if ($isLogin && !empty($user['full_name'])): ?>
+              <span class="ms-2 fw-semibold">Xin chào, <?= htmlspecialchars($user['full_name']) ?></span>
+            <?php endif; ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#">Đăng nhập</a></li>
-            <li><a class="dropdown-item" href="#">Đăng ký</a></li>
+            <?php if (!$isLogin): ?>
+              <li><a class="dropdown-item" href="index.php?act=dangnhap">Đăng nhập</a></li>
+              <li><a class="dropdown-item" href="index.php?act=dangky">Đăng ký</a></li>
+            <?php else: ?>
+              <li><a class="dropdown-item" href="#">Cập nhật tài khoản</a></li>
+              <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
+            <?php endif; ?>
           </ul>
         </div>
       </div>
