@@ -10,6 +10,9 @@ require_once './controllers/Admin/ProductController.php';
 require_once './controllers/Admin/CategoryController.php';
 require_once './controllers/Admin/AdminController.php';
 
+// Require file Controller Client
+require_once './controllers/Client/HomeController.php';
+
 // Require toàn bộ file Models
 require_once './models/ProductModel.php';
 
@@ -19,9 +22,19 @@ $act = $_GET['act'] ?? '/';
 
 // Để bảo bảo tính chất chỉ gọi 1 hàm Controller để xử lý request thì mình sử dụng match
 
+
 match ($act) {
-    // Trang chủ (mặc định là trang admin)
-    '/' => (new AdminController())->index(),
+    // Trang client
+    '/' => (new HomeController())->index(),
+
+
+
+
+
+
+
+
+    // Trang admin
 
     // Trang index admin
     'admin' => (new AdminController())->index(),
