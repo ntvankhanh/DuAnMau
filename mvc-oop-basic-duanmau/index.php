@@ -26,6 +26,7 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang client
     '/' => (new HomeController())->index(),
+    'gioithieu' => include './views/Client/gioithieu.php',
 
 
 

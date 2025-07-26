@@ -24,7 +24,7 @@
             <a class="nav-link active text-dark fw-semibold px-3" aria-current="page" href="#">Trang chủ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold px-3" href="#">Giới thiệu</a>
+            <a class="nav-link text-dark fw-semibold px-3" href="index.php?act=gioithieu">Giới thiệu</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark fw-semibold px-3" href="#">Dịch vụ</a>
