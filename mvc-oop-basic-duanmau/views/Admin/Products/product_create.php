@@ -95,6 +95,10 @@
                             <input type="number" name="price" id="price" required>
                         </div>
                         <div class="form-group">
+                            <label for="quantity">Số lượng:</label>
+                            <input type="number" name="quantity" id="quantity" min="0" required>
+                        </div>
+                        <div class="form-group">
                             <label for="category_id">Danh mục:</label>
                             <select name="category_id" id="category_id" required>
                                 <option value="">-- Chọn danh mục --</option>

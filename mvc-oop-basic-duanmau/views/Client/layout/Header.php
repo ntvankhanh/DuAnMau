@@ -27,12 +27,18 @@
             <a class="nav-link text-dark fw-semibold px-3" href="index.php?act=gioithieu">Giới thiệu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark fw-semibold px-3" href="#">Sản phẩm</a>
+            <a class="nav-link text-dark fw-semibold px-3" href="index.php?act=sanpham">Sản phẩm</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-dark fw-semibold px-3" href="#">Liên hệ</a>
           </li>
         </ul>
+        <!-- Form tìm kiếm sản phẩm trên menu -->
+        <form method="get" action="index.php" class="d-flex ms-3" style="max-width: 320px;">
+          <input type="hidden" name="act" value="search">
+          <input class="form-control me-2" type="text" name="search" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+          <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+        </form>
         <div class="dropdown ms-4">
           <?php 
             $isLogin = !empty($_SESSION['user']);

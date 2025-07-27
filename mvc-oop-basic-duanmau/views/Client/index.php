@@ -1,95 +1,84 @@
-
 <?php 
-// include header
+// Include header
 include __DIR__ . '/layout/Header.php';
 ?>
 
-<style>
-    .product-list-home {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 24px;
-        margin-top: 32px;
-    }
-    .product-card-home {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        padding: 18px 14px 16px 14px;
-        text-align: center;
-        transition: box-shadow 0.2s, transform 0.2s;
-        border: 1px solid #f0f0f0;
-    }
-    .product-card-home:hover {
-        box-shadow: 0 4px 24px rgba(78,84,200,0.12);
-        transform: translateY(-4px) scale(1.02);
-    }
-    .product-card-home img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #e0e0e0;
-        background: #fafbff;
-    }
-    .product-card-home .name {
-        font-size: 17px;
-        font-weight: 600;
-        color: #4e54c8;
-        margin-bottom: 6px;
-        min-height: 40px;
-    }
-    .product-card-home .price {
-        color: #00b894;
-        font-weight: 600;
-        font-size: 16px;
-        margin-bottom: 4px;
-    }
-    .product-card-home .status {
-        display: inline-block;
-        padding: 3px 12px;
-        border-radius: 12px;
-        font-size: 13px;
-        font-weight: 500;
-        background: #f0f0f0;
-        color: #888;
-        margin-bottom: 4px;
-    }
-    .product-card-home .status.hien {
-        background: #d1f8e0;
-        color: #00b894;
-    }
-    .product-card-home .status.an {
-        background: #ffe0e0;
-        color: #d63031;
-    }
-</style>
-
 <main class="container my-5">
-    <h1 class="mb-4">Trang chủ</h1>
-    <p>Chào mừng bạn đến với trang chủ của chúng tôi!</p>
-
-    <?php if (!empty($products)): ?>
-        <div class="product-list-home">
-            <?php foreach ($products as $p): ?>
-                <div class="product-card-home">
-                    <?php if (!empty($p['img'])): ?>
-                        <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>">
-                    <?php else: ?>
-                        <img src="https://via.placeholder.com/100x100?text=No+Image" alt="No image">
-                    <?php endif; ?>
-                    <div class="name"><?= htmlspecialchars($p['name']) ?></div>
-                    <div class="price"><?= number_format($p['price']) ?> đ</div>
-                    <div class="status <?= $p['status']==1?'hien':'an' ?>">
-                        <?= $p['status']==1 ? 'Hiện' : 'Ẩn' ?>
-                    </div>
+    <!-- Slideshow Section -->
+    <section class="mb-5">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner rounded-3">
+                <div class="carousel-item active">
+                    <img src="https://png.pngtree.com/background/20230410/original/pngtree-dessert-delicious-ice-cream-cake-background-picture-image_2384529.jpg" class="d-block w-100" alt="Banner 1" style="height: 700px; object-fit: cover;">
                 </div>
-            <?php endforeach; ?>
+                <div class="carousel-item">
+                    <img src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-cake-cut-coffee-illustration-background-image_2150869.jpg" class="d-block w-100" alt="Banner 2" style="height: 700px; object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-dessert-cheese-cake-illustration-background-image_2206266.jpg" class="d-block w-100" alt="Banner 3" style="height: 700px; object-fit: cover;">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-    <?php else: ?>
-        <div class="alert alert-info mt-4">Chưa có sản phẩm nào.</div>
-    <?php endif; ?>
+    </section>
+
+    <!-- Original Content -->
+    <h1 class="display-5 fw-bold mb-3">Trang chủ</h1>
+    <p class="lead text-muted mb-4">Chào mừng bạn đến với cửa hàng của chúng tôi!</p>
+
+    <?php
+    require_once './models/ProductModel.php';
+    $productModel = new ProductModel();
+    // Lấy tất cả danh mục
+    $categories = $productModel->conn->query("SELECT * FROM categories")->fetchAll();
+    ?>
+
+    <section id="products">
+        <?php if (!empty($categories)): ?>
+            <?php foreach ($categories as $cat): ?>
+                <?php $catProducts = $productModel->getProductsByCategory($cat['id'], 8); ?>
+                <?php if (!empty($catProducts)): ?>
+                    <h2 class="mt-5 mb-3 fs-3 text-primary"><?= htmlspecialchars($cat['name']) ?></h2>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                        <?php foreach ($catProducts as $p): ?>
+                            <div class="col">
+                                <div class="card h-100 border-light shadow-sm transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                                    <?php if (!empty($p['img'])): ?>
+                                        <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
+                                    <?php else: ?>
+                                        <img src="https://via.placeholder.com/120x120?text=No+Image" alt="No image" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
+                                    <?php endif; ?>
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title fw-semibold text-dark text-truncate" style="min-height: 48px;"><?= htmlspecialchars($p['name']) ?></h5>
+                                        <p class="card-text text-success fw-bold fs-5"><?= number_format($p['price']) ?> đ</p>
+                                        <?php if (isset($p['is_new']) && $p['is_new']): ?>
+                                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">New</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="alert alert-info mt-4" role="alert">
+                <i class="bi bi-info-circle me-2"></i>Chưa có sản phẩm nào.
+            </div>
+        <?php endif; ?>
+    </section>
 </main>
 
 <?php 

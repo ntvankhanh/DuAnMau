@@ -13,6 +13,8 @@ require_once './controllers/Admin/AdminController.php';
 // Require file Controller Client
 require_once './controllers/Client/HomeController.php';
 require_once './controllers/Client/UserController.php';
+require_once './controllers/Client/ClientProductsController.php';
+
 
 // Require toàn bộ file Models
 require_once './models/ProductModel.php';
@@ -28,6 +30,9 @@ match ($act) {
     // Trang client
     '/' => (new HomeController())->index(),
     'gioithieu' => include './views/Client/gioithieu.php',
+    // Xử lý tìm kiếm: chuyển hướng sang trang sản phẩm
+    'search' => (new ClientProductsController())->search(),
+    'sanpham' =>(new ClientProductsController())->index(),
     'dangnhap' => (new UserController())->showLoginForm(),
     'dangky' => (new UserController())->showRegisterForm(),
     'register' => (new UserController())->register($_POST),

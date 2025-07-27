@@ -127,6 +127,7 @@
                                 <th>Tên</th>
                                 <th>Ảnh</th>
                                 <th>Giá</th>
+                                <th>Số lượng</th>
                                 <th>Danh mục</th>
                                 <th>Ngày</th>
                                 <th>Trạng thái</th>
@@ -144,6 +145,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td><span style="color:#4e54c8;font-weight:600;"><?= number_format($p['price']) ?> đ</span></td>
+                                <td><?= htmlspecialchars($p['quantity']) ?></td>
                                 <td>
                                   <?= htmlspecialchars($p['category_name'] ?? 'Không có') ?>
                                 </td>
