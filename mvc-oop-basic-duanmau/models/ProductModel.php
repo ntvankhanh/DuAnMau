@@ -13,7 +13,7 @@ class ProductModel
     // Lấy sản phẩm theo id danh mục, chỉ lấy sản phẩm status = 1
     public function getProductsByCategory($categoryId, $limit = 8)
     {
-        $sql = "SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.status = 1 AND p.category_id = :category_id ORDER BY p.category_id ASC LIMIT $limit";
+        $sql = "SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.status = 1 AND p.category_id = :category_id ORDER BY RAND() LIMIT $limit";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
         $stmt->execute();

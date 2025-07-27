@@ -55,13 +55,19 @@ include __DIR__ . '/layout/Header.php';
                         <?php foreach ($catProducts as $p): ?>
                             <div class="col">
                                 <div class="card h-100 border-light shadow-sm transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
-                                    <?php if (!empty($p['img'])): ?>
-                                        <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
-                                    <?php else: ?>
-                                        <img src="https://via.placeholder.com/120x120?text=No+Image" alt="No image" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
-                                    <?php endif; ?>
+                                    <a href="index.php?act=sanphamct&id=<?= $p['id'] ?>" class="d-block">
+                                        <?php if (!empty($p['img'])): ?>
+                                            <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <img src="https://via.placeholder.com/120x120?text=No+Image" alt="No image" class="card-img-top img-fluid p-3" style="height: 200px; object-fit: cover;">
+                                        <?php endif; ?>
+                                    </a>
                                     <div class="card-body text-center">
-                                        <h5 class="card-title fw-semibold text-dark text-truncate" style="min-height: 48px;"><?= htmlspecialchars($p['name']) ?></h5>
+                                        <h5 class="card-title fw-semibold text-dark text-truncate" style="min-height: 48px;">
+                                            <a href="index.php?act=sanphamct&id=<?= $p['id'] ?>" class="text-decoration-none text-dark">
+                                                <?= htmlspecialchars($p['name']) ?>
+                                            </a>
+                                        </h5>
                                         <p class="card-text text-success fw-bold fs-5"><?= number_format($p['price']) ?> đ</p>
                                         <?php if (isset($p['is_new']) && $p['is_new']): ?>
                                             <span class="badge bg-primary position-absolute top-0 end-0 m-2">New</span>

@@ -33,6 +33,7 @@ match ($act) {
     // Xử lý tìm kiếm: chuyển hướng sang trang sản phẩm
     'search' => (new ClientProductsController())->search(),
     'sanpham' =>(new ClientProductsController())->index(),
+    'sanphamct' => (new ClientProductsController())->showDetail($_GET['id'] ?? 0),
     'dangnhap' => (new UserController())->showLoginForm(),
     'dangky' => (new UserController())->showRegisterForm(),
     'register' => (new UserController())->register($_POST),

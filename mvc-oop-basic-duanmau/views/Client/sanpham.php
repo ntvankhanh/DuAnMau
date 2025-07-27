@@ -109,12 +109,14 @@ include __DIR__ . '/layout/Header.php';
         <div class="product-list-home">
             <?php foreach ($products as $p): ?>
                 <div class="product-card-home">
-                    <?php if (!empty($p['img'])): ?>
-                        <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" class="img-fluid">
-                    <?php else: ?>
-                        <img src="https://via.placeholder.com/120x120?text=No+Image" alt="No image" class="img-fluid">
-                    <?php endif; ?>
-                    <div class="name"><?= htmlspecialchars($p['name']) ?></div>
+                    <a href="index.php?act=sanphamct&id=<?= $p['id'] ?>" style="display:block; text-decoration:none; color:inherit;">
+                        <?php if (!empty($p['img'])): ?>
+                            <img src="Uploads/imgproduct/<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" class="img-fluid">
+                        <?php else: ?>
+                            <img src="https://via.placeholder.com/120x120?text=No+Image" alt="No image" class="img-fluid">
+                        <?php endif; ?>
+                        <div class="name"><?= htmlspecialchars($p['name']) ?></div>
+                    </a>
                     <div class="price"><?= number_format($p['price']) ?> đ</div>
                     <?php if (isset($p['is_new']) && $p['is_new']): ?>
                         <span class="new-badge">New</span>
