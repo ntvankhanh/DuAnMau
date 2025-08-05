@@ -59,6 +59,9 @@
               <li><a class="dropdown-item" href="index.php?act=dangnhap">Đăng nhập</a></li>
               <li><a class="dropdown-item" href="index.php?act=dangky">Đăng ký</a></li>
             <?php else: ?>
+              <?php if ($user['role'] === 'admin'): ?>
+                <li><a class="dropdown-item" href="index.php?act=admin">Quản lý Admin</a></li>
+              <?php endif; ?>
               <li><a class="dropdown-item" href="#">Cập nhật tài khoản</a></li>
               <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
             <?php endif; ?>
@@ -67,4 +70,5 @@
       </div>
     </div>
   </nav>
-  
+</body>
+</html>
