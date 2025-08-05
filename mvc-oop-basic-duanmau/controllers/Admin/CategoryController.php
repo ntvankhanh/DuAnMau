@@ -24,7 +24,23 @@ class CategoryController {
 
     // Xử lý thêm mới
     public function store($name) {
+        // Validate không để trống
+        if (trim($name) === '') {
+            $_SESSION['error_message'] = 'Tên danh mục không được để trống!';
+            header('Location: index.php?act=category-create-form');
+            exit;
+        }
+        // Kiểm tra trùng tên danh mục
+        $categories = $this->categoryModel->all();
+        foreach ($categories as $cat) {
+            if (mb_strtolower(trim($cat['name'])) === mb_strtolower(trim($name))) {
+                $_SESSION['error_message'] = 'Tên danh mục đã tồn tại!';
+                header('Location: index.php?act=category-create-form');
+                exit;
+            }
+        }
         $this->categoryModel->create($name);
+        $_SESSION['success_message'] = 'Thêm danh mục thành công!';
         header('Location: index.php?act=category');
         exit;
     }
@@ -37,7 +53,23 @@ class CategoryController {
 
     // Xử lý cập nhật
     public function update($id, $name) {
+        // Validate không để trống
+        if (trim($name) === '') {
+            $_SESSION['error_message'] = 'Tên danh mục không được để trống!';
+            header('Location: index.php?act=category-edit-form&id=' . $id);
+            exit;
+        }
+        // Kiểm tra trùng tên danh mục (trừ chính nó)
+        $categories = $this->categoryModel->all();
+        foreach ($categories as $cat) {
+            if ($cat['id'] != $id && mb_strtolower(trim($cat['name'])) === mb_strtolower(trim($name))) {
+                $_SESSION['error_message'] = 'Tên danh mục đã tồn tại!';
+                header('Location: index.php?act=category-edit-form&id=' . $id);
+                exit;
+            }
+        }
         $this->categoryModel->update($id, $name);
+        $_SESSION['success_message'] = 'Cập nhật danh mục thành công!';
         header('Location: index.php?act=category');
         exit;
     }

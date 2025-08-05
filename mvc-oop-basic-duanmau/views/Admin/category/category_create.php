@@ -11,7 +11,7 @@
                         <form action="index.php?act=category-store" method="post">
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-bold">Tên danh mục:</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên danh mục" required>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên danh mục">
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <button type="submit" class="btn btn-primary">

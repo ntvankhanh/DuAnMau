@@ -29,6 +29,15 @@ class ProductController
 
     public function store($data)
     {
+        // Validate trùng tên sản phẩm
+        $allProducts = $this->modelProduct->getAllProduct();
+        foreach ($allProducts as $p) {
+            if (mb_strtolower(trim($p['name'])) === mb_strtolower(trim($data['name']))) {
+                $_SESSION['error_message'] = 'Tên sản phẩm đã tồn tại!';
+                header('Location: index.php?act=product-create-form');
+                exit;
+            }
+        }
         // Xử lý upload ảnh
         if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
             $targetDir = 'uploads/imgproduct/';
@@ -43,6 +52,7 @@ class ProductController
             $data['img'] = null; // Nếu không upload thì dùng ảnh mặc định
         }
         $this->modelProduct->createProduct($data);
+        $_SESSION['success_message'] = 'Thêm sản phẩm thành công!';
         header('Location: index.php?act=products');
         exit;
     }
@@ -60,6 +70,15 @@ class ProductController
 
     public function update($id, $data)
     {
+        // Validate trùng tên sản phẩm (trừ chính nó)
+        $allProducts = $this->modelProduct->getAllProduct();
+        foreach ($allProducts as $p) {
+            if ($p['id'] != $id && mb_strtolower(trim($p['name'])) === mb_strtolower(trim($data['name']))) {
+                $_SESSION['error_message'] = 'Tên sản phẩm đã tồn tại!';
+                header('Location: index.php?act=product-edit-form&id=' . $id);
+                exit;
+            }
+        }
         // Lấy thông tin sản phẩm cũ
         $oldProduct = $this->modelProduct->getProductById($id);
 
@@ -84,6 +103,7 @@ class ProductController
             $data['img'] = $oldProduct['img']; // Nếu không upload thì giữ ảnh cũ
         }
         $this->modelProduct->updateProduct($id, $data);
+        $_SESSION['success_message'] = 'Cập nhật sản phẩm thành công!';
         header('Location: index.php?act=products');
         exit;
     }

@@ -10,23 +10,23 @@
           <form method="post" action="index.php?act=register">
             <div class="mb-3">
               <label for="username" class="form-label">Tên đăng nhập</label>
-              <input type="text" class="form-control" id="username" name="username" required>
+              <input type="text" class="form-control" id="username" name="username" >
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Mật khẩu</label>
-              <input type="password" class="form-control" id="password" name="password" required>
+              <input type="password" class="form-control" id="password" name="password">
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" required>
+              <input type="email" class="form-control" id="email" name="email" >
             </div>
             <div class="mb-3">
               <label for="phone" class="form-label">Số điện thoại</label>
-              <input type="text" class="form-control" id="phone" name="phone" required>
+              <input type="text" class="form-control" id="phone" name="phone" >
             </div>
             <div class="mb-3">
               <label for="full_name" class="form-label">Họ và tên</label>
-              <input type="text" class="form-control" id="full_name" name="full_name" required>
+              <input type="text" class="form-control" id="full_name" name="full_name" >
             </div>
             <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
           </form>

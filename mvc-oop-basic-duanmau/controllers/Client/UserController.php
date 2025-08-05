@@ -15,11 +15,12 @@ class UserController {
         $username = $data['username'] ?? '';
         $userExists = $userModel->findByUsername($username);
         if ($userExists) {
-            $_SESSION['register_error'] = 'Tên tài khoản đã tồn tại!';
+            $_SESSION['error_message'] = 'Tên tài khoản đã tồn tại!';
             header('Location: index.php?act=dangky');
             exit;
         }
         $userModel->register($data);
+        $_SESSION['success_message'] = 'Đăng ký thành công! Bạn có thể đăng nhập.';
         header('Location: index.php?act=dangnhap');
         exit;
     }
@@ -30,10 +31,11 @@ class UserController {
         $user = $userModel->findByUsername($data['username'] ?? '');
         if ($user && password_verify($data['password'] ?? '', $user['password'])) {
             $_SESSION['user'] = $user;
+            $_SESSION['success_message'] = 'Đăng nhập thành công!';
             header('Location: index.php');
             exit;
         } else {
-            $_SESSION['login_error'] = 'Tên đăng nhập hoặc mật khẩu không đúng!';
+            $_SESSION['error_message'] = 'Tên đăng nhập hoặc mật khẩu không đúng!';
             header('Location: index.php?act=dangnhap');
             exit;
         }
