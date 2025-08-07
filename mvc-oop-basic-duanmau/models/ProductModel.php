@@ -44,7 +44,7 @@ class ProductModel
         if (!empty($search)) {
             $sql .= " WHERE p.name LIKE :search";
         }
-        $sql .= " ORDER BY p.category_id ASC";
+        $sql .= " ORDER BY id desc";
         $stmt = $this->conn->prepare($sql);
         if (!empty($search)) {
             $searchParam = '%' . $search . '%';

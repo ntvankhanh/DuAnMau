@@ -29,5 +29,16 @@ class UserModel {
         $stmt->execute([$username]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function findByEmail($email) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function findByPhone($phone) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE phone = ?");
+        $stmt->execute([$phone]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

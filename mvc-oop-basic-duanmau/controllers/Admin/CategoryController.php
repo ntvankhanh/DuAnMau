@@ -32,7 +32,7 @@ class CategoryController {
         }
         // Kiểm tra trùng tên danh mục
         $categories = $this->categoryModel->all();
-        foreach ($categories as $cat) {
+        foreach ($categories as $cat) { 
             if (mb_strtolower(trim($cat['name'])) === mb_strtolower(trim($name))) {
                 $_SESSION['error_message'] = 'Tên danh mục đã tồn tại!';
                 header('Location: index.php?act=category-create-form');

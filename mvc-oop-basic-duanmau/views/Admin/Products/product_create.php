@@ -84,7 +84,7 @@
                     <form action="index.php?act=product-store" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Tên sản phẩm:</label>
-                            <input type="text" name="name" id="name" required>
+                            <input type="text" name="name" id="name" >
                         </div>
                         <div class="form-group">
                             <label for="img">Ảnh:</label>
@@ -92,15 +92,15 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Giá:</label>
-                            <input type="number" name="price" id="price" required>
+                            <input type="number" name="price" id="price" >
                         </div>
                         <div class="form-group">
                             <label for="quantity">Số lượng:</label>
-                            <input type="number" name="quantity" id="quantity" min="0" required>
+                            <input type="number" name="quantity" id="quantity" min="0" >
                         </div>
                         <div class="form-group">
                             <label for="category_id">Danh mục:</label>
-                            <select name="category_id" id="category_id" required>
+                            <select name="category_id" id="category_id" >
                                 <option value="">-- Chọn danh mục --</option>
                                 <?php if (!empty($categories)) foreach ($categories as $cat): ?>
                                     <option value="<?= htmlspecialchars($cat['id']) ?>"><?= htmlspecialchars($cat['name']) ?></option>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="form-group">
                             <label for="date">Ngày:</label>
-                            <input type="date" name="date" id="date" required>
+                            <input type="date" name="date" id="date" >
                         </div>
                         <div class="form-group">
                             <label for="status">Trạng thái:</label>
