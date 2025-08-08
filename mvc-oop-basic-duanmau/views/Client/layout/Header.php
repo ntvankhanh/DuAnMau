@@ -61,8 +61,9 @@
             <?php else: ?>
               <?php if ($user['role'] === 'admin'): ?>
                 <li><a class="dropdown-item" href="index.php?act=admin">Quản lý Admin</a></li>
+                <li><a class="dropdown-item" href="index.php?act=admin-comments">Quản lý bình luận</a></li>
               <?php endif; ?>
-              <li><a class="dropdown-item" href="#">Cập nhật tài khoản</a></li>
+              <li><a class="dropdown-item" href="index.php?act=update-user">Cập nhật tài khoản</a></li>
               <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
             <?php endif; ?>
           </ul>

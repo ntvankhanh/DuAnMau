@@ -1,5 +1,60 @@
 <?php
 class UserController {
+    public function showUpdateForm() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?act=dangnhap');
+            exit;
+        }
+        $user = $_SESSION['user'];
+        include './views/Client/update_user.php';
+    }
+
+    public function update($data) {
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?act=dangnhap');
+            exit;
+        }
+        require_once './models/User.php';
+        $userModel = new UserModel();
+        $id = $_SESSION['user']['id'];
+        $errors = [];
+        // Validate các trường cần thiết
+        if (empty($data['full_name'])) $errors[] = 'Họ tên không được để trống!';
+        if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Email không hợp lệ!';
+        if (!empty($data['phone']) && !preg_match('/^[0-9]{10,11}$/', $data['phone'])) $errors[] = 'Số điện thoại phải từ 10-11 chữ số!';
+        // Xử lý upload avatar
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0) {
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (in_array($_FILES['avatar']['type'], $allowedTypes) && $_FILES['avatar']['size'] <= 2 * 1024 * 1024) {
+                $targetDir = 'uploads/avatar/';
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0755, true);
+                }
+                $fileName = time() . '_' . basename($_FILES['avatar']['name']);
+                $targetFile = $targetDir . $fileName;
+                if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetFile)) {
+                    $data['avatar'] = $targetFile;
+                } else {
+                    $errors[] = 'Lỗi tải lên ảnh đại diện!';
+                }
+            } else {
+                $errors[] = 'File ảnh không hợp lệ hoặc quá lớn!';
+            }
+        }
+        if (!empty($errors)) {
+            $_SESSION['error_message'] = implode(' ', $errors);
+            header('Location: index.php?act=update-user');
+            exit;
+        }
+        // Thực hiện cập nhật
+        $userModel->updateUser($id, $data);
+        // Cập nhật lại session
+        $user = $userModel->findByUsername($_SESSION['user']['username']);
+        $_SESSION['user'] = $user;
+        $_SESSION['success_message'] = 'Cập nhật thông tin thành công!';
+        header('Location: index.php?act=update-user');
+        exit;
+    }
     public function showRegisterForm() {
         include './views/Client/dangky.php';
     }

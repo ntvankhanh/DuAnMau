@@ -63,5 +63,11 @@
                 <a class="nav-link" href="index.php?act=products">
                     <i class="fas fa-box"></i> Quản lý sản phẩm
                 </a>
+                <a class="nav-link" href="index.php?act=admin-comments">
+                    <i class="fas fa-comments"></i> Quản lý bình luận
+                </a>
+                <a class="nav-link" href="index.php">
+                    <i class="fas fa-home"></i> Quay lại trang khách
+                </a>
             </nav>
         </div>

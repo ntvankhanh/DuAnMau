@@ -9,6 +9,7 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/Admin/ProductController.php';
 require_once './controllers/Admin/CategoryController.php';
 require_once './controllers/Admin/AdminController.php';
+require_once './controllers/Admin/CommentController.php';
 
 // Require file Controller Client
 require_once './controllers/Client/HomeController.php';
@@ -38,16 +39,28 @@ match ($act) {
     'search' => (new ClientProductsController())->search(),
     'sanpham' => (new ClientProductsController())->index(),
     'sanphamct' => (new ClientProductsController())->showDetail($_GET['id'] ?? 0),
+    'add-comment' => (new ClientProductsController())->addComment(),
+    'edit-comment' => (new ClientProductsController())->editComment(),
+    'delete-comment' => (new ClientProductsController())->deleteComment(),
     'dangnhap' => (new UserController())->showLoginForm(),
     'dangky' => (new UserController())->showRegisterForm(),
     'register' => (new UserController())->register($_POST),
     'login' => (new UserController())->login($_POST),
     'logout' => (new UserController())->logout(),
+    'update-user' => $_SERVER['REQUEST_METHOD'] === 'POST' ? (new UserController())->update($_POST) : (new UserController())->showUpdateForm(),
 
     // Trang admin - Kiểm tra quyền admin trước khi thực thi
     'admin' => (function() {
         checkAdminAccess();
         return (new AdminController())->index();
+    })(),
+    'admin-comments' => (function() {
+        checkAdminAccess();
+        return (new CommentController())->index();
+    })(),
+    'admin-comment-delete' => (function() {
+        checkAdminAccess();
+        return (new CommentController())->delete($_GET['id'] ?? 0);
     })(),
     'products' => (function() {
         checkAdminAccess();

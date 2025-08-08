@@ -1,6 +1,35 @@
 <?php
 require_once __DIR__ . '/../commons/function.php';
 class UserModel {
+    public function updateUser($id, $data) {
+        $fields = [];
+        $params = [];
+        if (!empty($data['full_name'])) {
+            $fields[] = 'full_name = ?';
+            $params[] = $data['full_name'];
+        }
+        if (!empty($data['email'])) {
+            $fields[] = 'email = ?';
+            $params[] = $data['email'];
+        }
+        if (!empty($data['phone'])) {
+            $fields[] = 'phone = ?';
+            $params[] = $data['phone'];
+        }
+        if (!empty($data['avatar'])) {
+            $fields[] = 'avatar = ?';
+            $params[] = $data['avatar'];
+        }
+        if (!empty($data['password'])) {
+            $fields[] = 'password = ?';
+            $params[] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+        if (empty($fields)) return false;
+        $params[] = $id;
+        $sql = "UPDATE users SET ".implode(', ', $fields)." WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute($params);
+    }
     private $conn;
 
     public function __construct() {
